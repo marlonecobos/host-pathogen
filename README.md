@@ -1,8 +1,8 @@
-## Detecting Signals of Pathogen Niche in Results from Testing Host Infections
+## Detecting Signals of Ecological Niches in Results of Studies with Defined Sampling Protocols
 
 <hr>
 
-This repository serves to store R scripts to reproduce analyses and figures presented in the manuscript "Detecting Signals of Pathogen Ecological Niche in Results from Studies Testing Host Infections".
+This repository serves to store R scripts to reproduce analyses and figures presented in the manuscript "Detecting Signals of Species’ Ecological Niches in Results of Studies with Defined Sampling Protocols: Example Application to Pathogen Niches".
 
 Authors: Marlon E. Cobos*, A. Townsend Peterson
 
