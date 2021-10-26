@@ -1,3 +1,15 @@
+# ------------------------------------------------------------------------------
+# Project: DETECTING SIGNALS OF SPECIES’ ECOLOGICAL NICHES IN RESULTS OF STUDIES
+#          WITH DEFINED SAMPLING PROTOCOLS: EXAMPLE APPLICATION TO PATHOGEN NICHES
+# Author: Marlon E. Cobos and A. Townsend Peterson
+# Date: 10/26/2021
+# ------------------------------------------------------------------------------
+
+# Description ------------------------------------------------------------------
+# Functions to run analyses. See script "Complete_process.R".
+# ------------------------------------------------------------------------------
+
+
 #' Detection of niche signal with records of positive a negative detection
 #' 
 #' @param data matrix or data.frame containing at least the following 
@@ -147,17 +159,25 @@ niche_signal_univariate <- function(data, condition, variable, iterations = 1000
     diff(range(sample(data[, variable], n_inf)))
   })
   
-  # p values
+  # helper to calculated p value according to position of observed in null
+  p_calc <- function(observed, null_distribution) {
+    ef <- ecdf(null_distribution)
+    ef(observed)
+  }
+  
+  # pseudo p values
   pml <- p_calc(pa_mean, n_mean) 
   pmdl <- p_calc(pa_med, n_med) 
   psl <- p_calc(pa_sd, n_sd)
   prl <- p_calc(pa_range, n_range)
   
+  # hypothesis test
   tm <- ifelse(pml <= 0.025 | pml >= 0.975, "rejected", "accepted")
   tmd <- ifelse(pmdl <= 0.025 | pmdl >= 0.975, "rejected", "accepted")
   ts <- ifelse(psl <= 0.025 | psl >= 0.975, "rejected", "accepted")
   tr <- ifelse(prl <= 0.025 | prl >= 0.975, "rejected", "accepted")
   
+  # position of observed
   qm <- ifelse(tm == "accepted", "indistinct",
                ifelse(pml <= 0.025, "lower", "higher"))
   qmd <- ifelse(tmd == "accepted", "indistinct",
@@ -174,7 +194,6 @@ niche_signal_univariate <- function(data, condition, variable, iterations = 1000
     summary = list(variable = variable, condition = condition, 
                    n_complete = nrow(data), n_positive = n_inf),
     analysis_results = list(
-      p_value = c(mean = pml, median = pmdl, SD = psl, range = prl),
       hypothesis_test = c(h0_mean = tm, h0_median = tmd, h0_SD = ts, 
                           h0_range = tr, positive_mean_vs_null = qm,
                           positive_median_vs_null = qmd,
@@ -192,13 +211,6 @@ niche_signal_univariate <- function(data, condition, variable, iterations = 1000
   return(results)
 }
 
-
-# helper to calculated p value according to position of observed in null
-p_calc <- function(observed, null_distribution) {
-  ifelse(observed > mean(null_distribution),
-         sum(null_distribution > observed) / length(null_distribution),
-         sum(null_distribution < observed) / length(null_distribution))
-}
 
 
 

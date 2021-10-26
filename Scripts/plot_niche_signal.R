@@ -70,7 +70,7 @@ plot_niche_signal <- function(niche_signal_list, statistic = "mean",
       )
       
       plot_niche_signal_univariate(rlist, statistic, breaks, main, xlab, 
-                                ylab, h_col, h_cex, lty, lwd, l_col, ...)
+                                   ylab, h_col, h_cex, lty, lwd, l_col, ...)
       
     } else {
       rlist <- list(
@@ -79,8 +79,9 @@ plot_niche_signal <- function(niche_signal_list, statistic = "mean",
         permanova_results = niche_signal_list$permanova_results
       )
       
-      plot_niche_signal_permanova(rlist, permanova_variables, pch, pt_cex, 
-                               pt_col, ...)
+      plot_niche_signal_permanova(rlist, permanova_variables,
+                                  ellipses, level, main, xlab, ylab, e_col, 
+                                  lty, lwd, pch, pt_cex, pt_col, ...)
     }
   } else {
     # plotting results from univariate analysis
@@ -92,7 +93,8 @@ plot_niche_signal <- function(niche_signal_list, statistic = "mean",
       # plotting results from permanova results
       if (!is.null(niche_signal_list$permanova_results)) {
         plot_niche_signal_permanova(niche_signal_list, permanova_variables,
-                                    ellipses, pch, pt_cex, pt_col, ...)
+                                    ellipses, level, main, xlab, ylab, e_col, 
+                                    lty, lwd, pch, pt_cex, pt_col, ...)
       } 
     }
   }
@@ -170,6 +172,7 @@ plot_niche_signal_univariate <- function(niche_signal_univariate_list, statistic
   var <- niche_signal_univariate_list$summary$variable
   
   # other things for plots
+  ylab <- ifelse(is.null(ylab), "Frequency", ylab)
   xlab <- ifelse(is.null(xlab), paste0(var, " (", statistic, ")"), xlab)
   xrang <- range(c(all, pos))
   
@@ -230,13 +233,19 @@ plot_niche_signal_permanova <- function(niche_signal_permanova_list, variables =
       pt_col <- pt_col[1:2]
     }
     
-    # plot
-    plot(niche_signal_permanova_list$modified_data[all, variables], main = main,
-         xlab = xlab, ylab = ylab, pch = pch[1], cex = pt_cex[1], 
-         col = pt_col[1], ...)
+    # labels 
+    xlab <- ifelse(is.null(xlab), variables[1], xlab)
+    ylab <- ifelse(is.null(ylab), variables[2], ylab)
     
-    points(niche_signal_permanova_list$modified_data[posi, variables], 
+    # plot
+    allp <- niche_signal_permanova_list$modified_data[all, variables]
+    plot(allp, main = main, xlab = xlab, ylab = ylab, pch = pch[1], 
+         cex = pt_cex[1], col = pt_col[1], ...)
+    
+    allp <- niche_signal_permanova_list$modified_data[posi, variables]
+    points(allp, 
            pch = pch[2], cex = pt_cex[2], col = pt_col[2])
+    
   } else {
     # type of lines
     if (length(e_col) == 1) {
@@ -258,20 +267,22 @@ plot_niche_signal_permanova <- function(niche_signal_permanova_list, variables =
     }
     
     # all ellipse
-    hell <- ellipse(x = cov(niche_signal_permanova_list$modified_data[all, variables]),
-                    centre = colMeans(niche_signal_permanova_list$modified_data[all, variables]),
-                    level = level)
+    hell <- ellipse::ellipse(
+      x = cov(niche_signal_permanova_list$modified_data[all, variables]),
+      centre = colMeans(niche_signal_permanova_list$modified_data[all, variables]),
+      level = level
+    )
     
     # positive ellipse
-    pell <- ellipse(x = cov(niche_signal_permanova_list$modified_data[posi, variables]),
-                    centre = colMeans(niche_signal_permanova_list$modified_data[posi, variables]),
-                    level = level)
-    
+    pell <- ellipse::ellipse(
+      x = cov(niche_signal_permanova_list$modified_data[posi, variables]),
+      centre = colMeans(niche_signal_permanova_list$modified_data[posi, variables]),
+      level = level
+    )
+
     # plot limits
     rans <- apply(rbind(hell, pell), 2, range)
-    xlims <- rans[, 1]
-    ylims <- rans[, 2]
-    
+
     # plot
     plot(rans, type = "n", main = main, xlab = xlab, ylab = ylab)
     lines(hell, col = e_col[1], lwd = lwd[1], lty = lty[1])
