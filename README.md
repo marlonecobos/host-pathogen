@@ -30,3 +30,4 @@ This repository contains scripts to:
   - <a href="https://github.com/marlonecobos/host-pathogen/blob/main/Scripts/niche_signal.R" target="_blank">Statistical analyses</a>. 
   - <a href="https://github.com/marlonecobos/host-pathogen/blob/main/Scripts/plot_niche_signal.R" target="_blank">Plotting</a>.
 - <a href="https://github.com/marlonecobos/host-pathogen/blob/main/Scripts/Complete_process.R" target="_blank">Script</a> to run the complete set of analyses needed to reproduce results from the manuscript.
+- <a href="https://github.com/marlonecobos/host-pathogen/blob/main/Scripts/Example.R" target="_blank">Script</a> with an example of how to use the methods presented in the manuscript.
