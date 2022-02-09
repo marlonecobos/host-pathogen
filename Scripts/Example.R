@@ -31,8 +31,8 @@ setwd("YOUR/DIRECTORY") # optional
 
 
 # Example data -----------------------------------------------------------------
-example_url <- "https://github.com/jsoberon/PAMs-Mexico/blob/master/PAM_IUCN_MEX.RData?raw=true"
-load(url(example_url)) # the object will be scenario3
+example_url <- "https://github.com/marlonecobos/host-pathogen/blob/main/Example_data/Host_pathogen_scenario_3.RData?raw=true"
+load(url(example_url)) # the object name is scenario3
 # ------------------------------------------------------------------------------
 
 
