@@ -37,8 +37,8 @@ library(biosurvey)
 
 
 # Functions to run analyses of similarity --------------------------------------
-source("Scripts/niche_signal.R")
-source("Scripts/plot_niche_signal.R")
+source("https://raw.githubusercontent.com/marlonecobos/host-pathogen/main/Scripts/niche_signal.R")
+source("https://raw.githubusercontent.com/marlonecobos/host-pathogen/main/Scripts/plot_niche_signal.R")
 # ------------------------------------------------------------------------------
 
 
