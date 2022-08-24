@@ -27,7 +27,6 @@ if (!require("ks")) {
 #' @param lwd_positive (numeric) line width for positive values, default = 0.7.  
 #' @param ... other arguments for the general plotting area.
 #' 
-#' @rdname plot_niche_signal_compsarison
 #' @usage 
 #' plot_data_kernel(niche_signal_list, variables = NULL, 
 #'                  col_all = "black", col_positive = "red", 
