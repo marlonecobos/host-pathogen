@@ -8,6 +8,10 @@ Authors: Marlon E. Cobos*, A. Townsend Peterson
 
 Contact: manubio13@gmail.com
 
+### Citation
+
+Cobos, M.E. & Peterson, A.T. (2022) Detecting signals of species’ ecological niches in results of studies with defined sampling protocols: Example application to pathogen niches. Biodiversity Informatics 17, 50–58. https://doi.org/10.17161/bi.v17i.15985
+
 ### Description
 
 This repository contains scripts to:
