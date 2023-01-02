@@ -284,7 +284,7 @@ plot_niche_signal_permanova <- function(niche_signal_permanova_list, variables =
     rans <- apply(rbind(hell, pell), 2, range)
 
     # plot
-    plot(rans, type = "n", main = main, xlab = xlab, ylab = ylab)
+    plot(rans, type = "n", main = main, xlab = xlab, ylab = ylab, ...)
     lines(hell, col = e_col[1], lwd = lwd[1], lty = lty[1])
     lines(pell, col = e_col[2], lwd = lwd[2], lty = lty[2])
   }
